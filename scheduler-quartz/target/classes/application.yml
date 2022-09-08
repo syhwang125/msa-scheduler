@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: Microservice for Spring Quartz
+  cache:
+    type: hazelcast 
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/quartz_schema?autoReconnection=true
+    username: root
+    password: root
+    hikari:
+      connection-timeout: 5000
+  kafka:
+    consumer:
+      bootstrap-servers:
+        - 192.168.193.180:9091  
+    producer:
+      bootstrap-servers:
+        - 192.168.193.180:9092
