@@ -1,1 +1,8 @@
-
+server:
+  port: 18080
+spring:
+  application:
+    name: biz-app-first
+  datasource:
+     driverClassName: org.mariadb.jdbc.Driver
+     url: jdbc:mariadb://localhost:
