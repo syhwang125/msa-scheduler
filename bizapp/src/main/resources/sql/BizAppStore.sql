@@ -1,0 +1,10 @@
+CREATE TABLE quartz_schema.BIZAPPSTORE (
+	APPID BIGINT auto_increment NOT NULL,
+	NAME varchar(100) NULL,
+        STATUS varchar(100) NULL, 
+        DESCRIPTION varchar(50) NULL,
+	CONSTRAINT BIZAPPSTORE_PK PRIMARY KEY (APPID)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci;
