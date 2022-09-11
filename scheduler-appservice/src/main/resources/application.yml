@@ -1,0 +1,47 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: Microservice for Spring Quartz
+  cache:
+    type: hazelcast 
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/quartz_schema?autoReconnection=true
+    username: root
+    password: root
+    hikari:
+      connection-timeout: 5000
+  jmx:
+    enabled: true
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+      naming: 
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    properties:
+      hibernate:
+        format_sql: false
+        globally_quoted_identifiers: true
+  thymeleaf:
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+  scheduler:
+    autoStartup: true
+    jmxExport: true
+    exposeSchedulerInRepository: true
+    overwriteExistingJobs: true
+    waitForJobsToCompleteOnShutdown: true
+    jobStore:
+      className: org.quartz.impl.jdbcjobstore.JobStoreTX
+      driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+      useProperties: false
+      misfireThreshold: 60000
+      tablePrefix: QRTZ_
+      isClustered: false
+      clusterCheckinInterval: 10000

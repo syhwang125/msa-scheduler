@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender" target="System.out">
+        <encoder charset="UTF-8">
+            <pattern>%date [%-5level] [%-4relative] [%logger{30}:%L] [%marker] - %message%n</pattern>
+        </encoder>
+        <target>System.out</target>
+    </appender>
+    
+    <logger name="com.msa.scheduler" level="debug" />
+    
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>
