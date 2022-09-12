@@ -14,5 +14,6 @@
     <module>scheduler-common</module>
     <module>scheduler-appservice</module>
     <module>scheduler-quartz</module>
+    <module>scheduler-bizservice</module>
   </modules>
 </project>

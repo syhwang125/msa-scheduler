@@ -23,8 +23,8 @@ public class SchedulerJobInfo {
 	private String jobStatus;
 	private String jobClass;
 	private String cronExpression;
-	private String desc;
-	private String interfaceName;
-	private Long repeatTime;
-	private Boolean cronJob;
+//	private String desc;
+//	private String interfaceName;
+//	private Long repeatTime;
+//	private Boolean cronJob;
 }

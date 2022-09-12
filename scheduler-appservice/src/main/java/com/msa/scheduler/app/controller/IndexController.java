@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.msa.scheduler.app.vo.SchedulerJobInfo;
+import com.msa.scheduler.app.entity.SchedulerJobInfo;
 
 import lombok.AllArgsConstructor;
 
