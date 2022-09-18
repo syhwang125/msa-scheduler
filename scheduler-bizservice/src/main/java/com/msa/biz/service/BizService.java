@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.msa.biz.entity.BizAppStore;
-import com.msa.biz.reposiotry.BizRepository;
+import com.msa.biz.repository.BizRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

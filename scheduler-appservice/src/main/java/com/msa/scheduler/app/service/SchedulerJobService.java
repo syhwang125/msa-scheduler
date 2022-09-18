@@ -1,6 +1,6 @@
 package com.msa.scheduler.app.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
 import java.util.List;
 
@@ -30,6 +30,7 @@ public class SchedulerJobService {
 		return schedulerRepository.findAll();
 	}
 
+	/*
 	public boolean deleteJob(SchedulerJobInfo jobInfo) {
 		try {
 			SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName(jobInfo.getJobName());
@@ -41,4 +42,5 @@ public class SchedulerJobService {
 			return false;
 		}
 	}
+	*/
 }
