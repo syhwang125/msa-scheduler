@@ -12,10 +12,37 @@ spring:
     password: root
     hikari:
       connection-timeout: 5000
+  jmx:
+    enabled: true
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+      naming: 
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    properties:
+      hibernate:
+        format_sql: false
+        globally_quoted_identifiers: true      
   kafka:
     consumer:
       bootstrap-servers:
         - 192.168.193.180:9091  
     producer:
       bootstrap-servers:
-        - 192.168.193.180:9092
+        - 192.168.193.180:9092        
+  scheduler:
+    autoStartup: true
+    jmxExport: true
+    exposeSchedulerInRepository: true
+    overwriteExistingJobs: true
+    waitForJobsToCompleteOnShutdown: true
+    jobStore:
+      className: org.quartz.impl.jdbcjobstore.JobStoreTX
+      driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+      useProperties: false
+      misfireThreshold: 60000
+      tablePrefix: QRTZ_
+      isClustered: false
+      clusterCheckinInterval: 10000

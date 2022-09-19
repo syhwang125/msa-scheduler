@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class IndexController {
 
-//	private final RestTemplate restTemplate; 	
+	private final RestTemplate restTemplate; 	
 
 	// 나중에 마이크로서비스(scheduler-quartz) 생성후에는 서비스 호출하는 형태로 변경할 것 
 	@GetMapping("/index")
@@ -38,7 +38,7 @@ public class IndexController {
 		return "index";
 	}
 	
-/*	
+
     @RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView modelAndView = new ModelAndView("list");
@@ -52,6 +52,6 @@ public class IndexController {
 	public String status() {
 		return "status";
 	}
-*/
+
 	
 }

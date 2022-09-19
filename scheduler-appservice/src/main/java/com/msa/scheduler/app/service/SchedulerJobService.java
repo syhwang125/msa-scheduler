@@ -1,11 +1,13 @@
 package com.msa.scheduler.app.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.quartz.JobKey;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,7 @@ public class SchedulerJobService {
 		return schedulerRepository.findAll();
 	}
 
+	/*
 	public boolean deleteJob(SchedulerJobInfo jobInfo) {
 		try {
 			SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName(jobInfo.getJobName());
@@ -39,6 +42,7 @@ public class SchedulerJobService {
 		} catch(SchedulerException e) {
 			log.error("Failed to delete job - {}", jobInfo.getJobName(), e);
 			return false;
-		}
+		}		
 	}
+	*/
 }

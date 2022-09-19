@@ -1,5 +1,5 @@
-com/msa/scheduler/common/controller/KafkaController.class
-com/msa/scheduler/common/service/KafkaMessageProducer.class
-com/msa/scheduler/common/SpringbootCommonApplication.class
-com/msa/scheduler/common/service/KafkaMessageConsumer.class
-com/msa/scheduler/common/entity/SchedulerJobInfo.class
+com\msa\scheduler\common\SpringbootCommonApplication.class
+com\msa\scheduler\common\service\KafkaMessageProducer.class
+com\msa\scheduler\common\service\KafkaMessageConsumer.class
+com\msa\scheduler\common\controller\KafkaController.class
+com\msa\scheduler\common\entity\SchedulerJobInfo.class
