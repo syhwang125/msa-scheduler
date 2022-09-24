@@ -32,24 +32,10 @@ public class IndexController {
     
 	@GetMapping("/index")
 	public String index(Model model) {
-<<<<<<< HEAD
 		
 		List<SchedulerJobInfo> jobList = new ArrayList<>();
-		/*  		
-		SchedulerJobInfo sjInfo = new SchedulerJobInfo();
-		sjInfo.setJobId(new Long("1"));
-		sjInfo.setJobName("syJob");
-		sjInfo.setJobStatus("Start");
-		sjInfo.setJobGroup("syJobGroup");
-		sjInfo.setCron_Expression("0 0/1 * 1/1 * ? *");
-		jobList.add(sjInfo);
-		*/
-
 		jobList = service.getAllJobList();
-=======
-		List<SchedulerJobInfo> jobList = scheduleJobService.getAllJobList();
 
-		//		List<SchedulerJobInfo> jobList = null;
 //		SchedulerJobInfo sjInfo = new SchedulerJobInfo();
 //		sjInfo.setJobId(new Long("1"));
 //		sjInfo.setJobName("syJob");
@@ -59,7 +45,6 @@ public class IndexController {
 //		sjInfo.setDescription("bizApplicationDesc");
 //		jobList.add(sjInfo);
 		
->>>>>>> 815c33c2ce07774a19e3522e335963ea990d1f42
 		model.addAttribute("jobs", jobList);
 		return "index";
 	}
