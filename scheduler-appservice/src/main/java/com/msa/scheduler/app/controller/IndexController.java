@@ -21,6 +21,9 @@ public class IndexController {
 
 //	private final RestTemplate restTemplate; 	
 
+	@Autowired
+	private SchedulerJobService scheduleJobService;
+	
 	// 나중에 마이크로서비스(scheduler-quartz) 생성후에는 서비스 호출하는 형태로 변경할 것 
 	// scheduler job register
 	
@@ -29,6 +32,7 @@ public class IndexController {
     
 	@GetMapping("/index")
 	public String index(Model model) {
+<<<<<<< HEAD
 		
 		List<SchedulerJobInfo> jobList = new ArrayList<>();
 		/*  		
@@ -42,6 +46,20 @@ public class IndexController {
 		*/
 
 		jobList = service.getAllJobList();
+=======
+		List<SchedulerJobInfo> jobList = scheduleJobService.getAllJobList();
+
+		//		List<SchedulerJobInfo> jobList = null;
+//		SchedulerJobInfo sjInfo = new SchedulerJobInfo();
+//		sjInfo.setJobId(new Long("1"));
+//		sjInfo.setJobName("syJob");
+//		sjInfo.setJobStatus("Start");
+//		sjInfo.setJobGroup("syJobGroup");
+//		sjInfo.setCronExpression("0 0/1 * 1/1 * ? *");
+//		sjInfo.setDescription("bizApplicationDesc");
+//		jobList.add(sjInfo);
+		
+>>>>>>> 815c33c2ce07774a19e3522e335963ea990d1f42
 		model.addAttribute("jobs", jobList);
 		return "index";
 	}

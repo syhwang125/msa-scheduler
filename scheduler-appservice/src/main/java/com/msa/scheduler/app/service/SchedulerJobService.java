@@ -1,6 +1,11 @@
 package com.msa.scheduler.app.service;
 
+<<<<<<< HEAD
 import java.util.Date;
+=======
+//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
+>>>>>>> 815c33c2ce07774a19e3522e335963ea990d1f42
 import java.util.List;
 import javax.transaction.Transactional;
 
@@ -55,6 +60,7 @@ public class SchedulerJobService {
 		return schedulerRepository.findAll();
 	}
 
+<<<<<<< HEAD
     public boolean startJob( SchedulerJobInfo jobInfo ) {
         try {
             SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName( jobInfo.getJobName() );
@@ -146,6 +152,9 @@ public class SchedulerJobService {
     }
 
 
+=======
+	/*
+>>>>>>> 815c33c2ce07774a19e3522e335963ea990d1f42
 	public boolean deleteJob(SchedulerJobInfo jobInfo) {
 		try {
 			SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName(jobInfo.getJobName());
@@ -157,6 +166,7 @@ public class SchedulerJobService {
 			return false;
 		}		
 	}
+<<<<<<< HEAD
 	
 	public boolean pauseJob(SchedulerJobInfo jobInfo) {
 	    try {
@@ -186,4 +196,7 @@ public class SchedulerJobService {
 	    }
 	}
 
+=======
+	*/
+>>>>>>> 815c33c2ce07774a19e3522e335963ea990d1f42
 }

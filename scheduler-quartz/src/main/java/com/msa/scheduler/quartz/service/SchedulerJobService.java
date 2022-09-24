@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 
-import com.msa.scheduler.quartz.component.SchedulerJobCreatot;
+import com.msa.scheduler.quartz.component.SchedulerJobCreator;
 import com.msa.scheduler.quartz.entity.SchedulerJobInfo;
 import com.msa.scheduler.quartz.repository.SchedulerRepository;
 
@@ -34,7 +34,7 @@ public class SchedulerJobService {
 	private SchedulerRepository schedulerRepository;
 	
 	@Autowired
-	private SchedulerJobCreatot jobSchedulerCreator;
+	private SchedulerJobCreator jobSchedulerCreator;
 	
 	@Autowired 
 	private ApplicationContext applicationContext;
