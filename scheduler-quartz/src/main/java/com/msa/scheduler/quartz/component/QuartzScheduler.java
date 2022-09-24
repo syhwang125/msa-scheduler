@@ -207,7 +207,7 @@ public class QuartzScheduler {
         JobDetail jobDetail = JobBuilder.newJob( ScheduleWorkJob.class )
                                         .withIdentity( this.getJobKey( schedule ) )
                                         .storeDurably()
-                                        .setJobData( this.getJobDataMap( schedule ) )
+                                        .setJobData( this.getJobDataMap( schedule )) //.getJobDataMap( schedule ) )
                                         .build();
         /* @formatter:on */
 
@@ -273,6 +273,14 @@ public class QuartzScheduler {
         /* @formatter:on */
     }
 
+    private JobDataMap getJobDataMap( Schedule schedule ) {
+        JobDataMap dataMap = new JobDataMap();
+        dataMap.put( "scheduleId", schedule.getId());
+        dataMap.put( "scheduleName", schedule.getName() );
+        return dataMap;
+    }
+    
+    
     /**
      * Return the JobKey with schedule
      *

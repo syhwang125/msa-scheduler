@@ -23,6 +23,9 @@ public class KafkaMessageProducer {
 	@Autowired
 	private KafkaTemplate<String, SchedulerJobInfo> kafkaTemplate;
 	
+	@Value("{$spring.application.name}") 
+	private String appName;
+	
 	public void sendMessage(SchedulerJobInfo message) {
 		this.kafkaTemplate.send(TOPIC, message);
 	}
@@ -32,7 +35,7 @@ public class KafkaMessageProducer {
 		return new NewTopic(TOPIC, 3, (short) 1);
 	}
 	
-	/*	 
+
 	@Value("${spring.kafka.bootstrap-servers}")
 	private String bootstrapServers;
 	
@@ -53,8 +56,8 @@ public class KafkaMessageProducer {
 		producer.send(message);
 	}
 	
-
-	public void sendMessage(SchedulerJobInfo schedulerJobInfo) {
+/*
+	public void produce(SchedulerJobInfo schedulerJobInfo) {
 		Properties props = new Properties();
 		props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
 		props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
@@ -64,5 +67,5 @@ public class KafkaMessageProducer {
 		ProducerRecord<String, String> message = new ProducerRecord<>("domain-event-job", schedulerJobInfo);
 		producer.send(message);
 	}
-*/	
+*/
 }

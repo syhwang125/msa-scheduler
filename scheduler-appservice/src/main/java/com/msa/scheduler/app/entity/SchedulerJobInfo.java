@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="schedulerJobInfo")
+@Table(name="SCHEDULER_JOB_INFO")
 public class SchedulerJobInfo {
 
 	@Id
@@ -21,11 +21,7 @@ public class SchedulerJobInfo {
 	private String jobName;
 	private String jobGroup;
 	private String jobStatus;
-	private String jobClass;
-	private String cronExpression;
-	private String desc;
-//	private String interfaceName;
-//	private String repeatTime;
-//	private Boolean cronJob;
+	private String cron_Expression;
+	private String description;
 
 }

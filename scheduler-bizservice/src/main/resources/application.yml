@@ -17,3 +17,10 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
+  kafka:
+    consumer:
+      bootstrap-servers:
+        - 192.168.193.180:9091  
+    producer:
+      bootstrap-servers:
+        - 192.168.193.180:9092    

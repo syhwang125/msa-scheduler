@@ -41,7 +41,6 @@
 					<th>Crons</th>
 					<th>State</th>
 					<th>Description</th>
-					<!-- <th>interface</th> -->
 					<th style="text-align: center;">Operation</th>
 				</tr>
 			</thead>
@@ -50,9 +49,9 @@
 					<td th:text="${item.jobId}"></td>
 					<td th:id="${'name_' + item.jobId}" th:text="${item.jobName}"></td>
 					<td th:id="${'group_' + item.jobId}" th:text="${item.jobGroup}"></td>
-					<td th:id="${'cron_' + item.jobId}" th:text="${item.cronExpression}"></td>
+					<td th:id="${'cron_' + item.jobId}" th:text="${item.cron_Expression}"></td>
 					<td th:id="${'status_' + item.jobId}" th:text="${item.jobStatus}"></td>
-					<td th:id="${'desc_' + item.jobId}" th:text="${item.jobClass}"></td>
+					<td th:id="${'desc_' + item.jobId}" th:text="${item.description}"></td>
 					<!-- <td>$!item.interfaceName</td> -->
 					<td style="text-align: center;">
 						<div class="btn-group text-center" role="group"
@@ -90,7 +89,7 @@
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon">Cron Expression</span> 
-								<input type="text" alias="no-edit" name="cronExpression" class="form-control" id="edit_cron" />
+								<input type="text" alias="no-edit" name="cron" class="form-control" id="edit_cron" />
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon">Job Status</span> 

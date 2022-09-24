@@ -87,7 +87,7 @@ public class ScheduleService {
         schedule.setStartDatetime( request.getStartDatetime() );
         schedule.setEndDatetime( request.getEndDatetime() );
 
-        this.setScheduleInfo( schedule, request.getType(), request.getRepeatInterval(), request.getCronExpression() );
+        this.setScheduleInfo( schedule, request.getCronExpression() );
         this.setScheduleStatus( schedule );
 
         schedule = repository.saveAndFlush( schedule );
@@ -350,61 +350,21 @@ public class ScheduleService {
      * @param repeatInterval the repeat interval
      * @param cronExpression the cron expression
      */
-    private void setScheduleInfo( Schedule schedule, ScheduleType type, int repeatInterval, String cronExpression ) {
-        switch ( type ) {
-            case ONEOFF:
-            case MINUTELY:
-            case HOURLY:
-            case DAILY:
-                schedule.setRepeatInterval( repeatInterval );
-                schedule.setCronExpression( null );
-                break;
-            case WEEKLY:
-            case MONTHLY:
-            case ADVANCED:
+    private void setScheduleInfo( Schedule schedule, String cronExpression ) {
                 this.checkCronExpression( cronExpression );
-                schedule.setRepeatInterval( 0 );
                 schedule.setCronExpression( cronExpression );
-                break;
-        }
-        schedule.setType( type );
     }
 
-    /**
-     * Set the base calendar
-     *
-     * @param schedule the Schedule
-     * @param calendarId the calendar id
-     */
-    private void setBaseCalendar( Schedule schedule, UUID calendarId ) {
-        Calendar calendar = null;
-        Optional<Calendar> optional = calendarService.findById( calendarId );
-        if ( optional.isPresent() ) {
-            calendar = optional.get();
-        } else {
-            throw new ServiceException( "Calendar does not exist.", CALENDAR_NOT_FOUND );
-        }
-        schedule.setCalendar( calendar );
-    }
-
-    /**
+     /**
      * Set the schedule status
      *
      * @param schedule the Schedule
      */
     private void setScheduleStatus( Schedule schedule ) {
-        ScheduleType type = schedule.getType();
         LocalDateTime startDatetime = schedule.getStartDatetime();
         LocalDateTime endDatetime = schedule.getEndDatetime();
         LocalDateTime now = LocalDateTime.now();
 
-        if ( type == ScheduleType.ONEOFF ) {
-            if ( startDatetime.isBefore( now ) ) {
-                schedule.setStatus( INACTIVE );
-            } else {
-                schedule.setStatus( ACTIVE );
-            }
-        } else {
             if ( startDatetime.isBefore( now ) ) {
                 if ( endDatetime != null && endDatetime.isBefore( now ) ) {
                     schedule.setStatus( INACTIVE );
@@ -413,9 +373,7 @@ public class ScheduleService {
                 }
             } else {
                 schedule.setStatus( INACTIVE );
-            }
-        }
-    }
+     }
 
     /**
      * Check the schedule cron expression by quartz
