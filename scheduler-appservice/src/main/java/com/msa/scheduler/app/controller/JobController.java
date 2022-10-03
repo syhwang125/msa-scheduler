@@ -1,5 +1,6 @@
 package com.msa.scheduler.app.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.quartz.SchedulerException;
@@ -31,23 +32,27 @@ public class JobController {
     @RequestMapping(value = "/getAllJobs")
     public Object getAllJobs() throws SchedulerException {
         List<SchedulerJobInfo> jobList = jobService.getAllJobList();
-        return jobList;
+        HashMap<String, List<SchedulerJobInfo>> map = new HashMap<String, List<SchedulerJobInfo>>();
+        map.put( "jobs", jobList );
+        return map;
     }
     
     
     @RequestMapping(value = "/saveOrUpdate", method = { RequestMethod.GET, RequestMethod.POST } )
-    public void saveOrUpdate(SchedulerJobInfo jobInfo) {
+    public boolean saveOrUpdate(SchedulerJobInfo jobInfo) {
         log.info( "params, job = {}", jobInfo );
         try {
             jobService.saveOrUpdate(jobInfo);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
         
     }
     @RequestMapping(value = "/runJob", method = { RequestMethod.GET, RequestMethod.POST } )
     public boolean runJob(SchedulerJobInfo jobInfo ) {
-        log.info( "params, job = {}", jobInfo );
+        log.info( "params, job = {}, {}", jobInfo.getJobId(), jobInfo.getJobName() );
         try {
             return jobService.startJob( jobInfo );
         } catch (Exception e) {
@@ -58,10 +63,9 @@ public class JobController {
     
     @RequestMapping(value = "/pauseJob", method = { RequestMethod.GET, RequestMethod.POST } ) 
     public boolean pauseJob( SchedulerJobInfo jobInfo ) {
-        log.info( "params, job = {}", jobInfo );
+        log.info( "params, job = {}, {}", jobInfo.getJobId(), jobInfo.getJobName() );
         try {
-            jobService.pauseJob( jobInfo );
-            return true;
+            return jobService.pauseJob( jobInfo );
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -70,10 +74,9 @@ public class JobController {
     
     @RequestMapping(value = "/resumeJob", method = {RequestMethod.GET, RequestMethod.POST }) 
     public boolean resumeJob(SchedulerJobInfo jobInfo) {
-        log.info( "params, job = {}", jobInfo  );
+        log.info( "params, job = {}, {}", jobInfo.getJobId(), jobInfo.getJobName()  );
         try {
-            jobService.resumeJob( jobInfo );
-            return true;
+            return jobService.resumeJob( jobInfo );
         } catch (Exception e) {
             e.printStackTrace();
             return false;

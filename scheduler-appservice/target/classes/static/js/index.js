@@ -1,6 +1,6 @@
 $(function() {
-
-	//run job once
+    
+    //run job once
     $(".btnRun").click(function() {
     	var jobId = $(this).parent().data("id");
     	console.log(jobId);
@@ -8,14 +8,15 @@ $(function() {
             url: "/api/runJob?t=" + new Date().getTime(),
             type: "POST",
             data: {
+                "jobId":$(this).parent().data("id"),
                 "jobName": $("#name_"+jobId).text(),
                 "jobGroup": $("#group_"+jobId).text()
             },
             success: function(res) {
-                if (res.valid) {
+                if (res) {
                 	alert("run success!");  
                 } else {
-                	alert(res.msg); 
+                	alert(res); 
                 }
             }
         });
@@ -25,18 +26,20 @@ $(function() {
     $(".btnPause").click(function() {
     	var jobId = $(this).parent().data("id");
         $.ajax({
-            url: "/api/pauseJob?t=" + new Date().getTime(),
+            // url: "/api/pauseJob?t=" + new Date().getTime(),
+            url: "/api/pauseJob",
             type: "POST",
             data: {
+            	"jobId":$(this).parent().data("id"),
                 "jobName": $("#name_"+jobId).text(),
                 "jobGroup": $("#group_"+jobId).text()
             },
             success: function(res) {
-                if (res.valid) {
+                if (res) {
                 	alert("pause success!");
                 	location.reload();
                 } else {
-                	alert(res.msg); 
+                	alert(res); 
                 }
             }
         });
@@ -46,18 +49,20 @@ $(function() {
     $(".btnResume").click(function() {
     	var jobId = $(this).parent().data("id");
         $.ajax({
-            url: "/api/resumeJob?t=" + new Date().getTime(),
+            // url: "/api/resumeJob?t=" + new Date().getTime(),
+            url: "/api/resumeJob",
             type: "POST",
             data: {
+            	"jobId":$(this).parent().data("id"),
                 "jobName": $("#name_"+jobId).text(),
                 "jobGroup": $("#group_"+jobId).text()
             },
             success: function(res) {
-                if (res.valid) {
+                if (res) {
                 	alert("resume success!");
                 	location.reload();
                 } else {
-                	alert(res.msg); 
+                	alert(res); 
                 }
             }
         });
@@ -67,18 +72,20 @@ $(function() {
     $(".btnDelete").click(function() {
     	var jobId = $(this).parent().data("id");
         $.ajax({
-            url: "/api/deleteJob?t=" + new Date().getTime(),
+            // url: "/api/deleteJob?t=" + new Date().getTime(),
+            url: "/api/deleteJob",
             type: "POST",
             data: {
+            	"jobId":$(this).parent().data("id"),
                 "jobName": $("#name_"+jobId).text(),
                 "jobGroup": $("#group_"+jobId).text()
             },
             success: function(res) {
-                if (res.valid) {
+                if (res) {
                 	alert("delete success!");
                 	location.reload();
                 } else {
-                	alert(res.msg); 
+                	alert(res); 
                 }
             }
         });
@@ -104,17 +111,18 @@ $(function() {
     });
     
     $("#save").click(
+        
 	    function() {
 	    	$.ajax({
 	            url: "/api/saveOrUpdate?t=" + new Date().getTime(),
 	            type: "POST",
 	            data:  $('#mainForm').serialize(),
 	            success: function(res) {
-	            	if (res.valid) {
+	            	if (res) {
 	                	alert("success!");
 	                	location.reload();
 	                } else {
-	                	alert(res.msg); 
+	                	alert(res); 
 	                }
 	            }
 	        });

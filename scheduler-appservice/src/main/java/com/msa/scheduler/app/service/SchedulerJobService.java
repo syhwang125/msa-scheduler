@@ -17,14 +17,12 @@ import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.expression.ParseException;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.msa.scheduler.app.entity.SchedulerJobInfo;
+import com.msa.scheduler.app.entity.SimpleCronJob;
 import com.msa.scheduler.app.repository.SchedulerRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -57,7 +55,8 @@ public class SchedulerJobService {
 
     public boolean startJob( SchedulerJobInfo jobInfo ) {
         try {
-            SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName( jobInfo.getJobName() );
+            log.info( " # jobID, jobName = {}, {} ", jobInfo.getJobId(), jobInfo.getJobName()  );
+            SchedulerJobInfo getJobInfo = schedulerRepository.getById( jobInfo.getJobId() );
             getJobInfo.setJobStatus("STARTED");
             schedulerRepository.save( getJobInfo );
             schedulerFactoryBean.getScheduler().triggerJob( new JobKey(jobInfo.getJobName(), jobInfo.getJobGroup()) );
@@ -70,24 +69,26 @@ public class SchedulerJobService {
     }
 
     public void saveOrUpdate( SchedulerJobInfo jobInfo ) throws Exception {
-        log.info( "# jobInfo - {} ", jobInfo.getJobName()  );
-        log.info( "# jobInfo - {} ", jobInfo.getJobGroup()  );
-        if(jobInfo.getCron_Expression().length() > 0 ) {
-            jobInfo.setCron_Expression( jobInfo.getCron_Expression() );
+        log.info( " # jobID, jobName = {}, {} ", jobInfo.getJobId(), jobInfo.getJobName()  );
+//        if(jobInfo.getCronExpression().length() > 0 ) {           
+            jobInfo.setCronExpression( jobInfo.getCronExpression() );
             jobInfo.setJobName( jobInfo.getJobName() );
             jobInfo.setJobGroup( jobInfo.getJobGroup() );
+            jobInfo.setJobStatus( jobInfo.getJobStatus() );
             jobInfo.setDescription( jobInfo.getDescription() );
-        } 
-        if(StringUtils.isEmpty( jobInfo.getJobId() )) {
-            insertJob(jobInfo);
+//        } 
+        if(jobInfo.getJobId() != null ) {
+            log.info( "# jobInfo.jobId - {}", jobInfo.getJobId() );
+             insertJob(jobInfo);
         } else {
+            log.info( "# jobInfo.jobId - {}", jobInfo.getJobId() );
             updateJob(jobInfo);
         }
     }
 
     private void updateJob( SchedulerJobInfo jobInfo ) {
         Trigger newTrigger =  createCronTrigger(jobInfo.getJobName(), new Date(),
-                jobInfo.getCron_Expression(),  SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW);
+                jobInfo.getCronExpression(),  SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW);
         
         try {
             schedulerFactoryBean.getScheduler().rescheduleJob(TriggerKey.triggerKey(jobInfo.getJobName()), newTrigger);
@@ -120,7 +121,8 @@ public class SchedulerJobService {
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             
             /* @formatter:off */
-            JobDetail jobDetail = JobBuilder.newJob( (Class<? extends QuartzJobBean>) Class.forName( "SimpleCronJob.class" ) ) 
+//            JobDetail jobDetail = JobBuilder.newJob( (Class<? extends QuartzJobBean>) Class.forName( "SimpleCronJob.class" ) ) 
+            JobDetail jobDetail = JobBuilder.newJob ( SimpleCronJob.class )                    
                                             .withIdentity( jobInfo.getJobName(), jobInfo.getJobGroup()  )
                                             .storeDurably()
                                             .build();
@@ -160,7 +162,7 @@ public class SchedulerJobService {
 	
 	public boolean pauseJob(SchedulerJobInfo jobInfo) {
 	    try {
-	        SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName( jobInfo.getJobName() );
+	        SchedulerJobInfo getJobInfo = schedulerRepository.getById( jobInfo.getJobId() );
 	        getJobInfo.setJobStatus( "PAUSED" );
 	        schedulerRepository.save( getJobInfo );
 	        schedulerFactoryBean.getScheduler().pauseJob( new JobKey(jobInfo.getJobName(), jobInfo.getJobGroup()) );
@@ -174,7 +176,7 @@ public class SchedulerJobService {
 	
 	public boolean resumeJob(SchedulerJobInfo jobInfo) {
 	    try {
-	        SchedulerJobInfo getJobInfo = schedulerRepository.findByJobName( jobInfo.getJobName() );
+	        SchedulerJobInfo getJobInfo = schedulerRepository.getById( jobInfo.getJobId() );
 	        getJobInfo.setJobStatus( "RESUMED" );
 	        schedulerRepository.save( getJobInfo );
 	        schedulerFactoryBean.getScheduler().resumeJob( new JobKey(jobInfo.getJobName(), jobInfo.getJobGroup()) );

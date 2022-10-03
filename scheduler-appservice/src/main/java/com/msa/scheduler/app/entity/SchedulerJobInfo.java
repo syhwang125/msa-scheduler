@@ -21,7 +21,7 @@ public class SchedulerJobInfo {
 	private String jobName;
 	private String jobGroup;
 	private String jobStatus;
-	private String cron_Expression;
+	private String cronExpression;
 	private String description;
 
 
